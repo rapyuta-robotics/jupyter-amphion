@@ -13,7 +13,7 @@ if (window.require) {
     window.require.config({
         map: {
             "*" : {
-                "jupyter-amphion": "nbextensions/jupyter-amphion/index",
+                "jupyter_amphion": "nbextensions/jupyter-amphion/index",
             }
         }
     });

@@ -48,6 +48,3 @@ class ROS(widgets.Widget):
 @register
 class Map(widgets.Widget):
     pass
-
-@register
-class Map2():

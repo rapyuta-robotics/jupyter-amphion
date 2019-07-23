@@ -61,7 +61,7 @@ module.exports = [
             filename: 'index.js',
             path: path.resolve(__dirname, 'dist'),
             libraryTarget: 'amd',
-            publicPath: 'https://unpkg.com/jupyter-amphion@' + version + '/dist/'
+            publicPath: 'https://unpkg.com/jupyter_amphion@' + version + '/dist/'
         },
         devtool: 'source-map',
         module: {

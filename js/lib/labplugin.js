@@ -2,11 +2,11 @@ var plugin = require('./index');
 var base = require('@jupyter-widgets/base');
 
 module.exports = {
-  id: 'jupyter-amphion',
+  id: 'jupyter_amphion',
   requires: [base.IJupyterWidgetRegistry],
   activate: function(app, widgets) {
       widgets.registerWidget({
-          name: 'jupyter-amphion',
+          name: 'jupyter_amphion',
           version: plugin.version,
           exports: plugin
       });
