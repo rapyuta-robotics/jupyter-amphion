@@ -1,0 +1,2 @@
+recursive-include jupyter_amphion/static *.*
+include jupyter-amphion.json
