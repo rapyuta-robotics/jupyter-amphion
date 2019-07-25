@@ -54,8 +54,6 @@ class Viewer3D(widgets.DOMWidget):
 
 
 
-
-
 ## No need to care about everyhting that follows....
 
 def js_formatter(d_in):

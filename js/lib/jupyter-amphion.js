@@ -1,7 +1,6 @@
 var widgets = require('@jupyter-widgets/base');
 var _ = require('lodash');
 var ROSLIB = require('roslib');
-
 var Amphion = require('amphion').default;
 
 var widget_defaults = widgets.WidgetModel.prototype.defaults;
@@ -33,9 +32,8 @@ var ROSModel = widgets.WidgetModel.extend({
     }
 });
 
-
 var Viewer3DModel = widgets.DOMWidgetModel.extend({
-    defaults: _.extend(domwidget_defaults(), defaults.Viewer3DDefaults),
+    defaults: _.extend(domwidget_defaults(), defaults.Viewer3DModelDefaults),
 },
 default_serializers(['ros']));
 
@@ -63,46 +61,8 @@ var Viewer3DView = widgets.DOMWidgetView.extend({
     }
 });
 
-var MapModel = widgets.WidgetModel.extend({
-        defaults: _.extend(widget_defaults(), defaults.MapDefaults),
-    }, default_serializers()
-);
-
-var MapView = widgets.WidgetView.extend({
-    initialize: function(args) {
-        MapView.__super__.initialize.apply(this, arguments);
-    },
-    render: function() {
-        this.view = new Amphion.Map({
-            ros: this.model.get('ros').get_connection(),
-            topic: this.model.get('topic')
-        });
-    }
-});
-
-
-var TfViewerModel = widgets.WidgetModel.extend({
-        defaults: _.extend(widget_defaults(), defaults.TfViewerDefaults),
-    }, default_serializers()
-);
-
-var TfViewerView = widgets.WidgetView.extend({
-    initialize: function(args) {
-        MapView.__super__.initialize.apply(this, arguments);
-    },
-    render: function() {
-        this.view = new Amphion.Map({
-            ros: this.model.get('ros').get_connection(),
-            topic: this.model.get('topic')
-        });
-    }
-});
-
 module.exports = {
     ROSModel: ROSModel,
-    MapModel: MapModel,
-
-    MapView: MapView,
     Viewer3DModel: Viewer3DModel,
     Viewer3DView: Viewer3DView
 };
