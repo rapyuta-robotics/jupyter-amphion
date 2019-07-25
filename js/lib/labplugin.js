@@ -1,4 +1,4 @@
-var plugin = require('./index');
+var index_module = require('./index.js');
 var base = require('@jupyter-widgets/base');
 
 module.exports = {
@@ -7,8 +7,8 @@ module.exports = {
   activate: function(app, widgets) {
       widgets.registerWidget({
           name: 'jupyter_amphion',
-          version: plugin.version,
-          exports: plugin
+          version: index_module.version,
+          exports: index_module
       });
   },
   autoStart: true
