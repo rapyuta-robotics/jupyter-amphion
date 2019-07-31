@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@jupyter-widgets/base": "^1.0.0",
-    "amphion": "^0.1.4",
+    "amphion": "^0.1.8",
     "lodash": "^4.17.4"
   },
   "jupyterlab": {
