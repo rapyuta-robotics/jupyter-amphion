@@ -4,9 +4,24 @@ var version = require('./package.json').version;
 // Custom webpack rules are generally the same for all webpack bundles, hence
 // stored in a separate local variable.
 var rules = [
-    { test: /\.css$/, use: ['style-loader', 'css-loader']}
+    { test: /\.css$/, use: ['style-loader', 'css-loader']},
+    { test: /\.py$/, use: ['pyparse.js']},
+    {
+        test: /\.js$/,
+        exclude: /node_modules\/(?!(amphion|urdf\-loader)\/).*/,
+        loader: 'babel-loader',
+        options: {
+            presets: ['@babel/preset-env']
+        },
+    },
 ]
 
+var local_loaders = {
+    modules: [
+        'node_modules',
+        path.resolve(__dirname, 'loaders')
+    ]
+}
 
 module.exports = [
     {// Notebook extension
@@ -22,7 +37,8 @@ module.exports = [
             filename: 'extension.js',
             path: path.resolve(__dirname, '..', 'jupyter_amphion', 'static'),
             libraryTarget: 'amd'
-        }
+        },
+        resolveLoader: local_loaders
     },
     {// Bundle for the notebook containing the custom widget views and models
      //
@@ -40,7 +56,8 @@ module.exports = [
         module: {
             rules: rules
         },
-        externals: ['@jupyter-widgets/base']
+        externals: ['@jupyter-widgets/base'],
+        resolveLoader: local_loaders
     },
     {// Embeddable jupyter-amphion bundle
      //
@@ -61,12 +78,13 @@ module.exports = [
             filename: 'index.js',
             path: path.resolve(__dirname, 'dist'),
             libraryTarget: 'amd',
-            publicPath: 'https://unpkg.com/jupyter-amphion@' + version + '/dist/'
+            publicPath: 'https://unpkg.com/jupyter_amphion@' + version + '/dist/'
         },
         devtool: 'source-map',
         module: {
             rules: rules
         },
-        externals: ['@jupyter-widgets/base']
-    }
+        externals: ['@jupyter-widgets/base'],
+        resolveLoader: local_loaders
+    },
 ];
