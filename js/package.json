@@ -27,8 +27,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "webpack": "^3.5.5",
-    "rimraf": "^2.6.1",
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "babel-loader": "^8.0.6",
@@ -41,8 +39,10 @@
     "html-webpack-plugin": "^3.2.0",
     "object.assign": "^4.1.0",
     "object.entries": "^1.1.0",
+    "rimraf": "^2.6.1",
     "rollup": "^1.16.7",
-    "rollup-plugin-local-resolve": "^1.0.7"
+    "rollup-plugin-local-resolve": "^1.0.7",
+    "webpack": "^4.39.1"
   },
   "dependencies": {
     "@jupyter-widgets/base": "^1.0.0",
