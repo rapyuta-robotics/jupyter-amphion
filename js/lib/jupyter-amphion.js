@@ -1,7 +1,7 @@
 var widgets = require('@jupyter-widgets/base');
 var _ = require('lodash');
 var ROSLIB = require('roslib');
-var Amphion = require('amphion').default;
+var Amphion = require('amphion');
 var THREE = require('three');
 var widget_defaults = widgets.WidgetModel.prototype.defaults;
 var domwidget_defaults = widgets.DOMWidgetModel.prototype.defaults;
@@ -34,7 +34,7 @@ var ROSModel = widgets.WidgetModel.extend({
 
 var Viewer3DModel = widgets.DOMWidgetModel.extend({
     defaults: _.extend(domwidget_defaults(), defaults.Viewer3DModelDefaults, {objects: []}),
-}, default_serializers(['ros', 'objects']));
+}, default_serializers(['objects']));
 
 var Viewer3DView = widgets.DOMWidgetView.extend({
     initialize: function() {
@@ -54,10 +54,48 @@ var Viewer3DView = widgets.DOMWidgetView.extend({
     render: function() {
         this.el.style.height = '500px';
 
-        var ros_connection = this.model.get('ros').get_connection();
-        console.log(ros_connection);
+        this.viewer = new Amphion.Viewer3d();
+        this.viewer.setContainer(this.el);
+        window.jviewer = this.viewer;
+        window.xt = THREE;
+        // just demo purposes
 
-        this.viewer = new Amphion.Viewer3d(ros_connection);
+        this.object_views = new widgets.ViewList(this.add_object, this.remove_object, this);
+        this.object_views.update(this.model.get('objects'));
+        this.model.on("change:background", this.background_change, this);
+        this.background_change();
+
+        /*this.displayed.then(() => {
+           this.init_viewer();
+        });*/
+        // this.model.on("change:alpha", this.background_color_change, this);
+    }
+});
+
+
+var Viewer2DModel = widgets.DOMWidgetModel.extend({
+    defaults: _.extend(domwidget_defaults(), defaults.Viewer2DModelDefaults, {objects: []}),
+}, default_serializers(['objects']));
+
+var Viewer2DView = widgets.DOMWidgetView.extend({
+    initialize: function() {
+        Viewer2DView.__super__.initialize.apply(this, arguments);
+    },
+    add_object: function (model) {
+        return this.create_child_view(model, {
+            viewer: this.viewer,
+        });
+    },
+    remove_object: function (view) {
+        view.remove();
+    },
+    background_change: function () {
+        this.viewer.scene.background = new THREE.Color(this.model.get('background'));
+    },
+    render: function() {
+        this.el.style.height = '500px';
+
+        this.viewer = new Amphion.Viewer2d();
         this.viewer.setContainer(this.el);
         window.jviewer = this.viewer;
         window.xt = THREE;
@@ -646,8 +684,13 @@ var RobotView = widgets.WidgetView.extend({
                 packages: this.model.get('packages')
             }
         );
-        //this.update();
-        this.viewer.addRobot(this.robotmodel);
+        if(this.viewer.addRobot) {
+            console.log('Add robot called');
+            this.viewer.addRobot(this.robotmodel);
+        } else {
+            this.viewer.addVisualization(this.robotmodel);
+            this.robotmodel.load();
+        }
     },
     trigger_rerender: function() {
         this.remove();
@@ -662,6 +705,8 @@ module.exports = {
     ROSModel: ROSModel,
     Viewer3DModel: Viewer3DModel,
     Viewer3DView: Viewer3DView,
+    Viewer2DModel: Viewer2DModel,
+    Viewer2DView: Viewer2DView,
     TfViewerModel: TfViewerModel,
     TfViewerView: TfViewerView,
     ArrowOptionsModel: ArrowOptionsModel,

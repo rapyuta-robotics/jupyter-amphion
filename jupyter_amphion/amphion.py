@@ -48,7 +48,11 @@ class ROS(widgets.Widget):
 
 @register
 class Viewer3D(widgets.DOMWidget):
-    ros = Instance(ROS).tag(**sync_widget)
+    objects = List(Instance(widgets.Widget)).tag(**sync_widget)
+    background = Unicode("#000000").tag(sync=True)
+
+@register
+class Viewer2D(widgets.DOMWidget):
     objects = List(Instance(widgets.Widget)).tag(**sync_widget)
     background = Unicode("#000000").tag(sync=True)
 

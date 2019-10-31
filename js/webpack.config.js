@@ -8,7 +8,7 @@ var rules = [
     { test: /\.py$/, use: ['pyparse.js']},
     {
         test: /\.js$/,
-        exclude: /node_modules\/(?!(amphion|urdf\-loader)\/).*/,
+        exclude: /node_modules\/.*/,
         loader: 'babel-loader',
         options: {
             presets: ['@babel/preset-env']
