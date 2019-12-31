@@ -48,7 +48,7 @@
   "dependencies": {
     "@babel/runtime": "^7.7.2",
     "@jupyter-widgets/base": "^1.0.0",
-    "amphion": "^0.1.20",
+    "amphion": "^0.1.22",
     "lodash": "^4.17.4",
     "roslib": "^1.0.1",
     "three": "^0.110.0"

@@ -34,7 +34,7 @@ var ROSModel = widgets.WidgetModel.extend({
 
 var Viewer3DModel = widgets.DOMWidgetModel.extend({
     defaults: _.extend(domwidget_defaults(), defaults.Viewer3DModelDefaults, {objects: []}),
-}, default_serializers(['objects']));
+}, default_serializers(['objects', 'layout']));
 
 var Viewer3DView = widgets.DOMWidgetView.extend({
     initialize: function() {
@@ -75,7 +75,7 @@ var Viewer3DView = widgets.DOMWidgetView.extend({
 
 var Viewer2DModel = widgets.DOMWidgetModel.extend({
     defaults: _.extend(domwidget_defaults(), defaults.Viewer2DModelDefaults, {objects: []}),
-}, default_serializers(['objects']));
+}, default_serializers(['objects', 'layout']));
 
 var Viewer2DView = widgets.DOMWidgetView.extend({
     initialize: function() {
@@ -115,7 +115,7 @@ var Viewer2DView = widgets.DOMWidgetView.extend({
 
 var TfViewerModel = widgets.DOMWidgetModel.extend({
     defaults: _.extend(domwidget_defaults(), defaults.TfViewerModelDefaults, {objects: []}),
-}, default_serializers(['ros', 'objects']));
+}, default_serializers(['ros', 'objects', 'layout']));
 
 var TfViewerView = widgets.DOMWidgetView.extend({
     initialize: function() {
