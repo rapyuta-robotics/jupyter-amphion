@@ -66,8 +66,8 @@ class NPM(Command):
     node_modules = os.path.join(node_root, 'node_modules')
 
     targets = [
-        os.path.join(here, 'jupyter_amphion', 'static', 'extension.js'),
-        os.path.join(here, 'jupyter_amphion', 'static', 'index.js')
+        os.path.join(node_root, 'extension.js'),
+        os.path.join(node_root, 'index.js')
     ]
 
     def initialize_options(self):
@@ -132,9 +132,9 @@ setup_args = {
     'include_package_data': True,
     'data_files': [
         ('share/jupyter/nbextensions/jupyter-amphion', [
-            'jupyter_amphion/static/extension.js',
-            'jupyter_amphion/static/index.js',
-            'jupyter_amphion/static/index.js.map',
+            os.path.join(node_root, 'extension.js'),
+            os.path.join(node_root, 'index.js'),
+            os.path.join(node_root, 'index.js.map'),
         ],),
         ('etc/jupyter/nbconfig/notebook.d' ,['jupyter-amphion.json'])
     ],
